@@ -3,14 +3,14 @@
 
 #define control_pin 5
 #define pwm_freq    250
-#define ssid        "Moral"
-#define pass        "Jasperkid1213"
+#define ssid        "Kerim"
+#define pass        "wikiboy123"
 #include "HX711.h"
 
 #define calibration_factor 32840.0 //This value is obtained using the SparkFun_HX711_Calibration sketch
 
-#define LOADCELL_DOUT_PIN  3
-#define LOADCELL_SCK_PIN  2
+#define LOADCELL_DOUT_PIN  14
+#define LOADCELL_SCK_PIN  12
 
 #define MAX 100 
 
@@ -71,8 +71,8 @@ void checkUdp() {
     int n = Udp.read(packetBuffer, UDP_TX_PACKET_MAX_SIZE);
     packetBuffer[n] = 0;
     thrust = atoi(packetBuffer);
-//    Serial.print("Thrust: ");
-//    Serial.println(thrust);
+    Serial.print("Thrust: ");
+    Serial.println(thrust);
 
   }
 }
@@ -80,6 +80,7 @@ void checkUdp() {
 void sendUdp() {
   if (millis() - now > 1000) {
     gcvt(weight, 4, buf); 
+    //Serial.println(buf);
     Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
     Udp.write(buf);
     Udp.endPacket();
