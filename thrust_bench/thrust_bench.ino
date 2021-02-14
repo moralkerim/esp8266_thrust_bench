@@ -7,12 +7,13 @@
 #define pass        "wikiboy123"
 #include "HX711.h"
 
-#define calibration_factor 32840.0 //This value is obtained using the SparkFun_HX711_Calibration sketch
+#define calibration_factor -120000 //This value is obtained using the SparkFun_HX711_Calibration sketch
 
 #define LOADCELL_DOUT_PIN  14
 #define LOADCELL_SCK_PIN  12
 
 #define MAX 100 
+#define ST 500
 
 HX711 scale;
 
@@ -78,7 +79,7 @@ void checkUdp() {
 }
 
 void sendUdp() {
-  if (millis() - now > 1000) {
+  if (millis() - now > ST) {
     gcvt(weight, 4, buf); 
     //Serial.println(buf);
     Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
